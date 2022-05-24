@@ -1,0 +1,21 @@
+.btnctr{
+    padding: 10px;
+    ion-button{
+        --background:#48ac98;
+        --padding-start: 20px;
+        --padding-end: 20px;
+        --padding-bottom:23px;
+        --padding-top:23px;
+    }
+}
+
+.priceprod{
+    color: #48ac98;
+}
+.sku{
+    font-size: 13px;
+    color: #9c9c9c;
+}
+.prodname{
+    color: #535353;
+}

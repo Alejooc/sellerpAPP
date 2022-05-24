@@ -1,20 +1,38 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <app-toolbar [btnCart]="true"></app-toolbar>
+  <section class="hd-box">
+    <ion-img [src]="api.URLIMG+'/logos/fondo.png'" ></ion-img>
+    <ion-item  lines="none" class="searchContent">
+      <ion-searchbar animated  placeholder="Buscar productos" class="search"></ion-searchbar>
+    </ion-item>
+    <app-categorieslider></app-categorieslider>
+  </section>
+  
+    <ion-grid class="pt-4">
+      <ion-row>
+        <ion-col size="6"  *ngFor="let prod of prods" [routerLink]="['/product',prod.slug]">
+          <ion-card >
+            <ion-chip color="success">
+              <ion-label color="success">Promo!</ion-label>
+            </ion-chip>
+            <ion-img [src]="api.URLIMG+'products/'+prod.img1" alt="ff"></ion-img>
+            
+            <ion-card-content>
+              <ion-text class="nameprod">
+                <h5>{{shortname(prod.name)}}</h5>
+              </ion-text>
+              <h5 class="price">{{prod.val | currency:'COP':'symbol-narrow':'3.0'}}</h5>
+            </ion-card-content>
+            
+          </ion-card>
+        </ion-col>
+        <ion-infinite-scroll threshold="250px" (ionInfinite)="loadData($event)">
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Cargando mas productos...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ion-row>
+    </ion-grid>
+  
 </ion-content>

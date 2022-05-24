@@ -1,0 +1,21 @@
+<ion-item class="toolbarCont" [ngStyle]="{'position': position}" [ngClass]="{'bg': bg==true}" lines="none">
+  <ng-template [ngIf]="btnCart">
+    <span color="light" class="cartBox" [ngClass]="{'shadow': shadow==true}" slot="end" [routerLink]="['/cart']">
+      <ion-icon name="bag-handle-outline" slot="end"></ion-icon>
+      <span class="bubble"></span>
+    </span>
+  </ng-template>
+  <ion-title>{{title}}</ion-title>
+  <ng-template [ngIf]="btnBack">
+    <span color="light" class="cartBox" slot="start" [ngClass]="{'shadow': shadow==true}" [routerLink]="['/']">
+      <ion-icon name="chevron-back-outline" slot="start"></ion-icon>
+    </span>
+  </ng-template>
+  <ng-template [ngIf]="btnUser">
+    <span color="light" class="cartBox" [ngClass]="{'shadow': shadow==true}" slot="start" [routerLink]="['/profile']">
+      <ion-icon name="person-sharp" slot="start"></ion-icon>
+    </span>
+  </ng-template>
+  
+</ion-item>
+

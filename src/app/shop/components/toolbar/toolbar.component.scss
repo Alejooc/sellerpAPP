@@ -1,0 +1,40 @@
+.toolbarCont.bg{
+    --background:#ffff;
+    
+}
+.toolbarCont{
+    position: absolute;
+    width: 100%;
+    --min-height: 60px!important;
+    --background:none;
+    
+    ion-title{
+        color: #266678!important;
+        z-index: 1000;
+        text-align:start;
+        padding-top: 9px;
+        margin-left: -10px;
+    }
+    .cartBox{
+        position:relative;
+        top: 4px;
+        background: white;
+        border-radius: 50%;
+        padding: 7px 9px 7px 9px;
+        ion-icon{
+            color:#266678;
+            font-size: 25px;
+        }
+        .bubble{
+            position: absolute;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            background-color: #48ac98;
+        }
+    }
+    .shadow{
+        box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
+    }
+    
+}

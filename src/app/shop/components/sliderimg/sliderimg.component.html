@@ -1,0 +1,6 @@
+
+<swiper [autoplay]="true" [keyboard]="true" [pagination]="true" [scrollbar]="false" [zoom]="true">
+  <ng-template swiperSlide *ngFor="let img of imgs">
+    <ion-img [src]="api.URLIMG+'products/'+img"></ion-img>
+  </ng-template>
+</swiper>

@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true">
+  <app-toolbar [position]="'relative'" [shadow]="true" [btnBack]="true" [btnCart]="true"></app-toolbar>
+  <section>
+    <app-sliderimg [imgs]="prod.imgs"></app-sliderimg>
+  </section>
+  
+  <ion-item lines="none" style="margin-bottom:0px;">
+    <ion-text class="prodname">
+      {{prod.name}}
+    </ion-text>
+  </ion-item>
+  <ion-item lines="none" >
+    <ion-text>
+      <span class="sku">SKU: {{prod.sku}}</span>
+    </ion-text>
+  </ion-item>
+  <ion-item lines="none">
+    <h5 class="priceprod ">{{prod.val | currency:'COP':'symbol-narrow':'3.0'}}</h5>
+  </ion-item>
+  
+  <ion-item lines="none">
+    <ion-col style="padding: 0px;">
+      <span class="prodname" style="display: block;">Descripción</span>
+      <span [innerHtml]="prod.description"></span>
+    </ion-col>
+  </ion-item>
+  <ion-grid>
+    <div class="btnctr">
+      <ion-button expand="block" (click)="addCart()" class="">
+        <!--<ion-icon name="bag-outline" slot="end"></ion-icon>!-->
+        Agregar al Carrito
+      </ion-button>  
+    </div>
+  </ion-grid>
+  
+    
+ 
+    
+
+    
+  
+  
+</ion-content>

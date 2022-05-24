@@ -1,0 +1,72 @@
+<ion-header [translucent]="false"  class="ion-no-border">
+  <app-toolbar [position]="'relative'" [bg]="true" [title]="'Carrito'" [shadow]="true" [btnBack]="true" [btnCart]="false">
+  </app-toolbar>
+ 
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid class="pt-4">
+    <ion-row>
+      <ion-col size="12"  *ngFor="let prod of cart,let i = index">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <ion-img [src]="api.URLIMG+'products/'+prod.imgs[0]" alt="ff"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <ion-text class="nameprod">
+              <h2>{{prod.name}}</h2>
+            </ion-text>
+            
+            <p>{{prod.val | currency:'COP':'symbol-narrow':'3.0'}} C/u</p>
+            <p>{{prod.val*prod.qty | currency:'COP':'symbol-narrow':'3.0'}} x {{prod.qty}}</p>
+            <div class="qtyProd">                  
+              <button class="minus" (click)="rev(prod.id)">
+                <ion-icon name="remove-outline"></ion-icon>
+              </button>
+              <input type="number" class="input" disabled value="{{prod.qty}}">
+              <button class="plus" (click)="add(prod.id)">
+                <ion-icon name="add-outline"></ion-icon>
+              </button>
+            </div>
+            
+          </ion-label>
+          <span>
+            <ion-icon slot="end" class="icon close" (click)="delItem(i)" name="close-circle-outline"></ion-icon>
+          </span>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="btnctr shadow">
+      
+      <ion-item lines="none">
+        <span slot="start" class="colorText price">Subtotal</span>
+        <span slot="end"  class="cuponText" (click)="presentModal()">
+          <ion-icon name="gift-outline" slot="end"></ion-icon>
+          Aplicar Cupon
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <span slot="start" class="colorText">Antes: $45.000 <ion-badge color="danger">-66% desc</ion-badge>
+        </span>
+      </ion-item>
+      <ion-item lines="none" class="colorText price"> 
+        <span slot="start">$45.000</span>
+      </ion-item>
+      <ion-item lines="none" class="colorText">
+        <span slot="start">Entrega estimada
+        </span>
+        <span slot="end" class="cuponText">
+         4 a 5 dias habiles
+        </span>
+      </ion-item>
+      <ion-button expand="block"  class="">
+        <ion-icon name="cart-outline" slot="start"></ion-icon>
+        finalizar compra
+      </ion-button>  
+    </div>
+  </ion-toolbar>
+</ion-footer>

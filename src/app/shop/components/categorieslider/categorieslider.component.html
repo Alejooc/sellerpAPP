@@ -1,0 +1,19 @@
+<section class="categoryG">
+  <div class="categoryList mx-1" id="categories">
+    <div class="categoryItem d-inline ml-2 pr-4 text-center" *ngFor="let cate of categories" [routerLink]="['/category',cate.slug]">
+      <div class="citem">
+           <img class="imgCategory img-fluid" src="https://app.sellerp.co/serverback/assets/filesApp/logos/categoria.png" alt="Category 1">
+      </div>
+      <span class="categoryName">
+         {{cate.name}}
+      </span>
+    </div>
+    
+  </div>
+  <button class="btnC prev" >
+    <ion-icon name="caret-back-outline"></ion-icon>
+  </button>
+  <button class="btnC next" >
+    <ion-icon name="caret-forward-outline"></ion-icon>
+  </button>
+</section>

@@ -1,0 +1,29 @@
+ion-slides{
+    ion-slide{
+        .promoimg{
+            z-index: 10;
+            position: absolute;
+            bottom: 3px;
+        }
+        .badgeEtiqueta{
+            z-index: 10;
+            position: absolute;
+            padding: 7px;
+            border-radius: 0px;
+            top: 7px;
+            left: 0px;
+            font-weight: 300;
+            --background:#c2c2c2;
+            
+        }
+        .pocas{
+            --background:#d34350!important;
+        }
+        .promo{
+            --background:#ffc107!important;
+        }
+        .nuevo{
+            --background:#00c851!important; 
+        }
+    }
+}
