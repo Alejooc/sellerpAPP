@@ -1,9 +1,96 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>checkout</ion-title>
-  </ion-toolbar>
+<ion-header  class="ion-no-border"> 
+  <app-toolbar [btnBack]="true" [position]="'relative'" [title]="'CheckOut'" [btnCart]="false" [btnUser]="false"></app-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-col class="boxContent">
+      <div class="form">
+        <div class="title">
+          <h6>
+            Registrar y Comprar
+          </h6>
+          <span>o</span>
+        </div>
+        
+        <ion-button expand="block" fill="outline" type="submit" class="btn-login">Iniciar Sesion</ion-button>
 
+        <form class="formulogin" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+          <div class="formGroup">
+            <ion-label>Usuario</ion-label>
+            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+          </div>
+          <div class="formGroup">
+            <ion-label>Usuario</ion-label>
+            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+          </div>
+          <div class="formGroup">
+            <ion-label>Usuario</ion-label>
+            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+          </div>
+          <div class="formGroup">
+            <ion-label>Usuario</ion-label>
+            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+          </div>
+          <div  class="formGroup">
+            <ion-label>Contraseña</ion-label>
+            <ion-input type="password" formControlName="password" placeholder="Ingrese su contraseña"></ion-input>
+          </div>
+        </form>
+      </div>
+    </ion-col>
+  </ion-grid>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="btnctr shadow">
+      
+      <ion-item lines="none">
+        <span slot="start" class="colorText price">Subtotal</span>
+        <span slot="end"  class="cuponText">
+         $780.000
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <span slot="start" class="colorText price">Envio</span>
+        <span slot="end"  class="cuponText">
+          $17.000
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <span slot="start" class="colorText price">Total</span>
+        <span slot="end"  class="cuponText">
+          $797.000
+        </span>
+      </ion-item>
+      <ng-template [ngIf]="activeDes">
+        <div class="prices">
+          <span slot="start" class="colorText" style="display: block;">Antes: {{total | currency:'COP':'symbol-narrow':'3.0'}} <ion-badge color="danger">{{perdesc}}%  desc</ion-badge>
+          </span>
+          <span slot="start" class="colorText" style="display: block;">Descuento: - {{perCurrenc | currency:'COP':'symbol-narrow':'3.0'}}
+          </span>
+          <span slot="start" class="colorText price" style="display: block;">Ahora: {{totalDesc | currency:'COP':'symbol-narrow':'3.0'}}
+          </span>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="activeDes === false">
+        <ion-item lines="none">
+          <span slot="start" class="colorText price">{{total | currency:'COP':'symbol-narrow':'3.0'}}
+          </span>
+        </ion-item>
+      </ng-template>
+      <ion-item lines="none" class="colorText">
+        <span slot="start">Entrega estimada
+        </span>
+        <span slot="end" class="cuponText">
+         4 a 5 dias habiles
+        </span>
+      </ion-item>
+      <ion-button expand="block"  class="">
+        <ion-icon name="cart-outline" slot="start"></ion-icon>
+        finalizar compra
+      </ion-button>  
+    </div>
+  </ion-toolbar>
+</ion-footer>

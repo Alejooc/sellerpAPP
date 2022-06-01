@@ -1,0 +1,73 @@
+.boxContent{
+    .form{
+        padding-left: 15px;
+        padding-right: 15px;
+        .title{
+            text-align: center;
+            color: #686868;
+            font-size: 20px;
+        }
+        .btn-login{
+            //--background:#48ac98;
+            --padding-start: 20px;
+            --padding-end: 20px;
+            --padding-bottom:23px;
+            --padding-top:23px;
+            margin-bottom: 38px;
+            --border-color:#48ac98;
+            color:#48ac98;
+            --border-width:1px;	
+        }
+    }
+    .formGroup{
+        ion-label{
+            margin-bottom: 20px!important;
+        }
+        ion-input{
+            margin-bottom: 18px!important;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+        }
+    }
+}
+.btnctr{
+    padding: 10px;
+    margin-bottom: 10px;
+    ion-button{
+        --background:#48ac98;
+        --padding-start: 20px;
+        --padding-end: 20px;
+        --padding-bottom:23px;
+        --padding-top:23px;
+    }
+    background: rgb(250, 250, 250);
+    .cuponText{
+        color: #48ac98;
+    }
+    ion-item{
+        background: unset !important;
+        ion-badge{
+            background: #e46a76 !important;
+            border-radius: 25px!important;
+            padding: 5px;
+        }
+    }
+    .prices{
+        background: #ffff !important;
+        padding-left: 15px;
+        ion-badge{
+            background: #e46a76 !important;
+            border-radius: 25px!important;
+            padding: 5px;
+        }  
+    }
+    .colorText{
+        color: #646464;
+        padding: 4px;
+    }
+    .colorText.price{
+        color: #646464;
+        font-weight: 600;
+        padding: 4px;
+    }
+}

@@ -1,10 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>pagemodal</ion-title>
-    <button (click)="dismiss()">f</button>
-  </ion-toolbar>
+<ion-header [translucent]="false"  class="ion-no-border">
+  <app-toolbar [position]="'relative'" [bg]="true" [title]="'Aplicar Cupon'" [shadow]="true" [btnBack]="true" [btnCart]="false" [md]="true">
+  </app-toolbar>
+ 
 </ion-header>
 
 <ion-content>
-ffffffffffffffff
+  <ion-grid class="cupon-box">
+    <ng-template [ngIf]="showA">
+      <ion-chip color="danger" outline="true">
+        <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+        <ion-label color="danger">Ya cuentas con un cupon, si aplicas uno nuevo este sera remplazado.</ion-label>
+      </ion-chip>
+    </ng-template>
+    
+    <ion-col >
+      
+      <form [formGroup]="cuponForm" (ngSubmit)="checkCupon()">
+        <ion-input inputmode="search" clearInput autofocus="true" class="input-cupons" placeholder="Ingrese el cupon..." formControlName="txt"></ion-input>
+        <span>{{msg}}</span>
+      <ion-button expand="block"  class="btn-g" type="submit">
+        <ion-icon name="gift-outline" slot="start"></ion-icon>
+        Aplicar Cupon
+      </ion-button>
+    </form>
+    </ion-col>
+  </ion-grid>
+  <ion-col>
+    
+  </ion-col>
 </ion-content>

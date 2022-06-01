@@ -34,6 +34,14 @@ const routes: Routes = [
     path: 'pagemodal',
     loadChildren: () => import('./shop/components/modal-comp/pagemodal/pagemodal.module').then( m => m.PagemodalPageModule)
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./shop/profile/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'pqr',
+    loadChildren: () => import('./help/pqr/pqr.module').then( m => m.PqrPageModule)
+  },
 ];
 
 @NgModule({

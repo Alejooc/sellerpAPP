@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>pqr</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-template [ngIf]="created">
+    <ion-grid>
+      <ion-col size="12" class="cont">
+        <h5>Crear Ticket Soporte</h5>
+        <form action="">
+          <div class="formGroup">
+            <ion-label>
+              Asunto
+            </ion-label>
+            <ion-input placeholder="Ingrese el asunto"></ion-input>
+          </div>
+          <div class="formGroup">
+            <ion-label>
+              Comentario
+            </ion-label>
+            <ion-textarea placeholder="Ingrese el comentario"></ion-textarea>
+          </div>
+          <ion-button expand="block" [routerLink]="['/']" type="button" class="btn-emptycart">Crear Ticket</ion-button>
+        </form>
+      </ion-col>
+    </ion-grid>
+  </ng-template>
+
+  <ng-template [ngIf]="read">
+    <ion-grid>
+      <ion-col>
+        <h5>Leer Ticket Soporte</h5>
+        
+      </ion-col>
+    </ion-grid>
+  </ng-template>
+</ion-content>

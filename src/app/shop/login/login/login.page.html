@@ -1,9 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
+<ion-header  class="ion-no-border"> 
+  <app-toolbar [btnBack]="true" [position]="'relative'" [btnCart]="false" [btnUser]="false"></app-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-col>
+      <h4>
+        Login
+      </h4>
+      <form class="formulogin" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <div class="formGruop">
+          <ion-label>Usuario</ion-label>
+          <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+        </div>
+        <div  class="formGruop">
+          <ion-label>Contraseña</ion-label>
+          <ion-input type="password" formControlName="password" placeholder="Ingrese su contraseña"></ion-input>
+        </div>
+        <ion-button expand="block" type="submit" >Iniciar Sesion</ion-button>
+      </form>
+    </ion-col>
+  </ion-grid>
 </ion-content>

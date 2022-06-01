@@ -1,0 +1,17 @@
+.cupon-box{
+    padding-left: 25px;
+    padding-right: 25px;
+    .btn-g{
+        --background:#48ac98;
+        --padding-start: 20px;
+        --padding-end: 20px;
+        --padding-bottom:23px;
+        --padding-top:23px;
+        margin-top:10px
+    }
+    .input-cupons{
+        border: 1px solid rgb(163, 163, 163);
+        border-radius: 5px;
+
+    }
+}

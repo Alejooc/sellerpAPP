@@ -1,22 +1,23 @@
 <ion-content [fullscreen]="true">
-  <app-toolbar [btnCart]="true"></app-toolbar>
+  <app-toolbar [btnCart]="true" [btnUser]="true"></app-toolbar>
   <section class="hd-box">
     <ion-img [src]="api.URLIMG+'/logos/fondo.png'" ></ion-img>
-    <ion-item  lines="none" class="searchContent">
-      <ion-searchbar animated  placeholder="Buscar productos" class="search"></ion-searchbar>
-    </ion-item>
+    <form [formGroup]="searchForm">
+      <ion-item  lines="none" class="searchContent">
+        <ion-searchbar animated  placeholder="Buscar productos" class="search" formControlName="txt"></ion-searchbar>
+      </ion-item>
+    </form>
     <app-categorieslider></app-categorieslider>
   </section>
   
     <ion-grid class="pt-4">
       <ion-row>
-        <ion-col size="6"  *ngFor="let prod of prods" [routerLink]="['/product',prod.slug]">
-          <ion-card >
-            <ion-chip color="success">
-              <ion-label color="success">Promo!</ion-label>
-            </ion-chip>
-            <ion-img [src]="api.URLIMG+'products/'+prod.img1" alt="ff"></ion-img>
-            
+        <ion-col size="6" class="cardProd"  *ngFor="let prod of prods" [routerLink]="['/product',prod.slug]">
+          <ion-card>
+            <div class="img">
+              <ion-badge color="success" class="promobg">Promo</ion-badge>
+              <ion-img [src]="api.URLIMG+'products/'+prod.img1" alt="ff"></ion-img>
+            </div>
             <ion-card-content>
               <ion-text class="nameprod">
                 <h5>{{shortname(prod.name)}}</h5>

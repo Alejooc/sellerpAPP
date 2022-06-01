@@ -7,7 +7,7 @@
   </ng-template>
   <ion-title>{{title}}</ion-title>
   <ng-template [ngIf]="btnBack">
-    <span color="light" class="cartBox" slot="start" [ngClass]="{'shadow': shadow==true}" [routerLink]="['/']">
+    <span color="light" class="cartBox" (click)="back()" slot="start" [ngClass]="{'shadow': shadow==true}">
       <ion-icon name="chevron-back-outline" slot="start"></ion-icon>
     </span>
   </ng-template>
@@ -16,6 +16,10 @@
       <ion-icon name="person-sharp" slot="start"></ion-icon>
     </span>
   </ng-template>
-  
+  <ng-template [ngIf]="btnLoggout">
+    <span color="light" class="cartBox" [ngClass]="{'shadow': shadow==true}" slot="end" (click)="loggout()">
+      <ion-icon name="enter-outline"></ion-icon>
+    </span>
+  </ng-template>
 </ion-item>
 

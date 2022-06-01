@@ -1,5 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
-
+import { PagemodalService } from "../modal-comp/pagemodal.service";
+import { ParamMap, Router, ActivatedRoute } from '@angular/router';
+import { StorageService } from "../../../services/storage/storage.service";
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -13,10 +15,33 @@ export class ToolbarComponent implements OnInit {
   @Input() btnCart:boolean=true;
   @Input() shadow:boolean=true;
   @Input() btnUser:boolean=false;
-  constructor() { }
+  @Input() md:boolean=false;
+  @Input() btnLoggout:boolean=false;
+
+  
+  act:any;
+  constructor(public pg:PagemodalService,private router:Router,private storge:StorageService) { }
 
   ngOnInit() {
     console.log(this.btnBack)
   }
+  public get dismiss() : any {
+    return this.pg.dismiss();
+  }
+
+  back(){
+    if (this.md) {
+      this.dismiss;
+    }else{
+      this.router.navigate(['/']);
+
+    }
+  }
+  async loggout(){
+    await this.storge.removeKey('userData');
+   this.router.navigate(['/login']);  
+  }
+  
+  
 
 }

@@ -3,6 +3,28 @@
     font-size: 24px;
     color:#266678;
 }
+.noItemsBox{
+    text-align: center;
+    margin-top: 145px;
+    ion-icon{
+        font-size: 55px;
+        color: #48ac98;
+    }
+    h5{
+        color: #48ac98;
+    }
+    .btn-emptycart{
+         //--background:#48ac98;
+         --padding-start: 20px;
+         --padding-end: 20px;
+         --padding-bottom:23px;
+         --padding-top:23px;
+         margin-bottom: 38px;
+         --border-color:#48ac98;
+         color:#48ac98;
+         --border-width:1px;	
+    }
+}
 .btnctr{
     padding: 10px;
     margin-bottom: 10px;
@@ -25,12 +47,23 @@
             padding: 5px;
         }
     }
+    .prices{
+        background: #ffff !important;
+        padding-left: 15px;
+        ion-badge{
+            background: #e46a76 !important;
+            border-radius: 25px!important;
+            padding: 5px;
+        }  
+    }
     .colorText{
         color: #646464;
+        padding: 4px;
     }
     .colorText.price{
         color: #646464;
         font-weight: 600;
+        padding: 4px;
     }
 }
 .btnctr.shadow{
@@ -43,7 +76,7 @@
         height: 37px;
         border:unset;
         text-align: center;
-        background: rgba(230, 230, 230, 0.534);
+        //background: rgba(230, 230, 230, 0.534);
         color: #417d8d;
     }
     

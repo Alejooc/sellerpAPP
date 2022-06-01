@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { CompsModule } from "../shop/components/comps.module";
 import { HomePageRoutingModule } from './home-routing.module';
+import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import { HomePageRoutingModule } from './home-routing.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    CompsModule
+    CompsModule,
+    ReactiveFormsModule
   ],
   declarations: [HomePage]
 })

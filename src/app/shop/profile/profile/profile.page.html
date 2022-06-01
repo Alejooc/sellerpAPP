@@ -1,0 +1,83 @@
+<ion-header  class="ion-no-border"> 
+  <app-toolbar [btnLoggout]="true" [btnBack]="true" [position]="'relative'" [title]="'Perfil'" [btnCart]="false" [btnUser]="false"></app-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-col class="box">
+      <div class="borderr">
+        <ion-avatar >
+          <ion-img [src]="conf.URLIMG+'logos/fondo.png'"></ion-img>
+        </ion-avatar>
+      </div>
+      
+      <span style="display: block; margin-top: 15px;color:#48ac98;font-weight: 600;">{{user.name}}
+        <ion-icon name="checkmark-circle"></ion-icon>
+      </span>
+      <span style="display: block; margin-top: 15px;color:rgb(143, 143, 143);font-size: 13px;">{{user.user}}</span>
+    </ion-col>
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="horders">
+        <ion-label><ion-icon name="cart-outline"></ion-icon> Compras</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="uaddress">
+        <ion-label><ion-icon name="map-outline"></ion-icon> Direcciones</ion-label>
+        
+      </ion-segment-button>
+      <ion-segment-button value="pqr">
+        <ion-label><ion-icon name="help-buoy-outline"></ion-icon> Pqr</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ng-template [ngIf]="orders">
+      <ion-col size="12">
+        <ion-col size="12" class="noItemsBox" *ngIf="data.length==0">
+          <h5>No tienes Ordenes :(</h5>
+          <ion-button expand="block"  fill="outline" [routerLink]="['/']" type="button" class="btn-emptycart">¡Comprar Ahora!</ion-button>
+        </ion-col>
+        <ion-list>
+          <div *ngFor="let address of data,let i = index" class="dv-item">
+            <ion-label>Direccion # {{i}}</ion-label>
+            <span style="display:block">Direccion: {{address.address}}</span>
+            <span style="display:block">Barrio: {{address.nbh}}</span>
+          </div>
+        </ion-list>
+      </ion-col>
+      
+    </ng-template>
+    <ng-template [ngIf]="address">
+      <ion-col size="12">
+        <ion-col size="12" class="noItemsBox" *ngIf="data.length==0">
+          <h5>Sin Direcciones...</h5>
+        </ion-col>
+        <ion-col size="12" class="noItemsBox">
+          <ion-button expand="block"  fill="outline" [routerLink]="['/pqr']" type="button" class="btn-emptycart">Crear Direccion</ion-button>
+        </ion-col>
+        <ion-list>
+          <div *ngFor="let address of data,let i = index" class="dv-item">
+            <ion-label>Direccion # {{i}}</ion-label>
+            <span style="display:block">Direccion: {{address.address}}</span>
+            <span style="display:block">Barrio: {{address.nbh}}</span>
+          </div>
+        </ion-list>
+    </ion-col>
+    </ng-template>
+    <ng-template [ngIf]="pqr">
+      <ion-col size="12">
+        
+        <ion-col size="12" class="noItemsBox">
+          <ion-button expand="block"  fill="outline" [routerLink]="['/pqr',user.id]" type="button" class="btn-emptycart">Crear PQR</ion-button>
+        </ion-col>
+        <ion-list>
+          <div *ngFor="let ticket of data,let i = index" class="dv-item">
+            <ion-label>PQR # {{i}}</ion-label>
+            <span style="display:block">Asunto: {{ticket.asunto}}</span>
+            <span style="display:block">Estado: {{ticket.status}}</span>
+            <span style="display:block">Fecha: {{ticket.created}}</span>
+          </div>
+        </ion-list>
+      </ion-col>
+    </ng-template>
+  </ion-grid>
+</ion-content>
+
+

@@ -21,10 +21,21 @@ export class HomeService {
   }
 
    // shop  products
-   getProductsC(pag:number,cat:any):Observable<any>{
+   getProductsC(param:string,pag:number,cat:any):Observable<any>{
+    let _urlParams: any = new FormData();
+    _urlParams.append('fil', JSON.stringify({
+      'search':param,
+      'category':cat,
+      'pag':pag
+    }));
+    return this.http.post(this.AppSettings.API+'get_products',_urlParams);
+  }
+
+  search(param:string,cat:string,pag:number):Observable<any>{
     let _urlParams: any = new FormData();
     _urlParams.append('fil', JSON.stringify({
       'category':cat,
+      'search':param,
       'pag':pag
     }));
     return this.http.post(this.AppSettings.API+'get_products',_urlParams);

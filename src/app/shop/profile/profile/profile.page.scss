@@ -1,0 +1,48 @@
+ion-content{
+    .noItemsBox{
+        text-align: center;
+        margin-top: 145px;
+        ion-icon{
+            font-size: 55px;
+            color: #48ac98;
+        }
+        h5{
+            color: #48ac98;
+        }
+        .btn-emptycart{
+             //--background:#48ac98;
+             --padding-start: 20px;
+             --padding-end: 20px;
+             --padding-bottom:23px;
+             --padding-top:23px;
+             margin-bottom: 38px;
+             --border-color:#48ac98;
+             color:#48ac98;
+             --border-width:1px;	
+        }
+    }
+    .borderr{
+        border: 2px solid #48ac986b;
+        border-radius: 50%;
+        padding: 2px;
+    }
+    .box{
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        flex-direction:column;
+        margin-bottom: 20px;
+        ion-avatar{
+            height: 100px;
+            width: 100px;
+        }
+    }
+    .dv-item{
+        padding: 15px;
+        border-bottom: #48ac986b solid 1px;
+    }
+    .box-2{
+        //padding: 5px;
+    }
+}

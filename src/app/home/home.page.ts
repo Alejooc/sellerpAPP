@@ -3,7 +3,7 @@ import { AppSettings } from "../config/config";
 import { HomeService } from "../services/home/home.service";
 import { IonInfiniteScroll } from '@ionic/angular';
 import { ParamMap, Router, ActivatedRoute } from '@angular/router';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +11,7 @@ import { ParamMap, Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   api = new AppSettings();
   version:string=AppSettings.VERSION; // only test :v
@@ -20,15 +21,26 @@ export class HomePage implements OnInit {
   categorie: any;
   page: any;
   slug=this.route.snapshot.params.slug;
-  constructor(private service:HomeService,public route:ActivatedRoute) {
+  filtroSearch: boolean=false;
+  searchForm:FormGroup;
+  busqueda: any;
+
+  constructor(private service:HomeService,
+    public route:ActivatedRoute,
+    private formBuilder:FormBuilder
+    ) {
     this.getStoreData();
   }
-
+  
+  customActionSheetOptions: any = {
+    header: 'Filter',
+    subHeader: 'Filtrar productos por categoria'
+  };
   loadData(event) {
     setTimeout(() => {
       console.log('Done');
       
-      this.service.getProductsC(this.page,this.categorie).subscribe(resp=>{
+      this.service.getProductsC(this.busqueda,this.page,this.categorie).subscribe(resp=>{
         console.log(resp);
         if (resp.type == 1) {
           this.page= resp.data.id;
@@ -57,7 +69,7 @@ export class HomePage implements OnInit {
 
   }
   getProducts(){
-    this.service.getProductsC(this.page,this.categorie).subscribe(resp=>{
+    this.service.getProductsC(this.busqueda,this.page,this.categorie).subscribe(resp=>{
       console.log(resp.resp);
       if (resp.type == 1) {
         this.page=resp.data.id;
@@ -74,8 +86,32 @@ export class HomePage implements OnInit {
     })
   }
   ngOnInit() {
-    if (this.slug!='') {
+     this.searchForm= this.formBuilder.group(
+      {
+        txt:[""]
+      }
+    )
+    this.searchForm.get('txt').valueChanges.subscribe(x=>{
+      this.page=0;
+      this.categorie=null;
+      if (this.searchForm.invalid) {
+        return;
+      }
+      this.service.search(x,this.categorie,this.page).subscribe(resp=>{
+        console.log(resp);
+        if (resp.type == 1) {
+          this.page=resp.data.id;
+          this.prods=[...resp.resp!];
+          this.busqueda=x;
+        }else{
+          console.log(resp.msg);
+        }
+      })
+    });
+    
+    if (this.slug!='' && this.slug != undefined) {
       this.categorie=this.slug;
+      this.filtroSearch = true;
     }
     this.getProducts();
     console.log(this.categorie);

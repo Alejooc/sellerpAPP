@@ -1,0 +1,34 @@
+ion-content{
+    h4{
+        text-align: center;
+        color: #48ac98;
+        font-weight: 600;
+        font-stretch: expanded;
+    }
+    .formulogin{
+        padding: 20px;
+        .formGruop{
+            padding-bottom: 13px;
+            ion-label{
+                color: rgb(83, 83, 83);
+                font-weight: 400;
+                margin-bottom: 5px;
+            }
+        }
+
+        ion-button{
+            --background:#48ac98;
+            --padding-start: 20px;
+            --padding-end: 20px;
+            --padding-bottom:23px;
+            --padding-top:23px;
+        }
+        ion-label{
+            display: block;
+        }
+        ion-input{
+            border:1px solid rgb(209, 209, 209);
+            border-radius: 5px;
+        }
+    }
+}

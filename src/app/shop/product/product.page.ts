@@ -69,7 +69,8 @@ export class ProductPage implements OnInit {
       this.cart.push(this.prod);
     }else{
       let prodd= this.cart.find(produc => produc.id === this.prod.id);
-      prodd.qty=parseInt(this.prod.qty)+parseInt(prodd.qty);
+      console.log(prodd);
+      prodd.qty=prodd.qty+1;   
       this.quitarCart(prodd.id);
       this.cart.push(prodd);
     }
