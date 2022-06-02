@@ -1,8 +1,131 @@
+.bg-danger{
+    background-color: rgb(206, 49, 49);
+}
+.bg-sucess{
+    background-color: #48ac98;
+}
+.bg-warning{
+    background-color: #d1b82b;
+}
+.iconback{
+    font-size: 30px;
+}
 .cont{
-    .formGroup{
-        ion-input,ion-textarea{
-            border:1px solid black;
+    .ticket-form{
+        padding: 15px;
+        .formGroup{
+            padding-bottom: 13px;
+            ion-label{
+                color: rgb(83, 83, 83);
+                font-weight: 400;
+                margin-bottom: 5px;
+            }
+            ion-button{
+                --background:#48ac98;
+                --padding-start: 20px;
+                --padding-end: 20px;
+                --padding-bottom:23px;
+                --padding-top:23px;
+            }
+            ion-input,ion-textarea{
+                border:1px solid rgb(209, 209, 209);
+                border-radius: 5px;
+            }
+            
         }
-        
+    }
+    .chatForm{
+        padding: 0px;
+        .formm{
+            display: flex;
+            align-content: center;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 6px;
+            padding-right: 6px;
+
+        }
+        .formGroup{
+            ion-button{
+                --background:#48ac98;
+                --padding-start: 20px;
+                --padding-end: 20px;
+                --padding-bottom:23px;
+                --padding-top:23px;
+                --border-radius: 6px;
+            }
+            ion-input,ion-textarea{
+                width: 280px!important;
+                border:1px solid rgb(209, 209, 209);
+                border-radius: 5px;
+            }
+            
+        }
+    }
+}
+
+.chat{
+    --rad: 20px;
+    --rad-sm: 3px;
+    font: 16px/1.5 sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    max-width: 500px;
+    margin: auto;
+    .bubble{
+        position: relative;
+        max-width: 65%;
+        padding: 10px 15px;
+        margin-bottom: 25px;
+    }   
+    .operator{
+        border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+        background: #f1f1f1;
+        color: #555;
+        /* moves it to the left */
+        margin-right: auto;
+    }
+    .client{
+        border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+        background: #48ac98;
+        color: #fff;
+        /* moves it to the right */
+        margin-left: auto;
+    }
+
+    .bubble.client:first-child,
+    .bubble.operator+.bubble.client {
+        border-top-right-radius: var(--rad);
+    }
+
+    .bubble.operator:first-child,
+    .bubble.client+.bubble.operator {
+        border-top-left-radius: var(--rad);
+    }
+
+
+    /* time */
+
+    .bubble::before {
+        content: attr(data-time);
+        font-size: 0.6rem;
+        position: absolute;
+        bottom: 100%;
+        color: #888;
+        white-space: nowrap;
+        /* Hidden by default */
+        display: none;
+    }
+    .bubble.client::before {
+        right: 15px;
+    }
+    .bubble.operator::before {
+        left: 15px;
+    }
+    .bubble:first-child::before,
+    .bubble.client+.bubble.operator::before,
+    .bubble.operator+.bubble.client::before {
+        display: block;
     }
 }

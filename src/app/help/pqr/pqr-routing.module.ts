@@ -5,7 +5,7 @@ import { PqrPage } from './pqr.page';
 
 const routes: Routes = [
   {
-    path: ':user',
+    path: ':ticket',
     component: PqrPage
   },
   {

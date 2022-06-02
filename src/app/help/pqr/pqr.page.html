@@ -1,39 +1,136 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>pqr</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ng-template [ngIf]="created">
+  <ion-header>
+    <ion-toolbar>
+      <ion-item lines="none">
+        <ion-icon name="arrow-back-circle-outline" style="font-size: 30px;" [routerLink]="['/']"></ion-icon>
+        <ion-title>Crear Ticket</ion-title>
+      </ion-item>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
-  <ng-template [ngIf]="created">
+  <ion-content>
+ 
     <ion-grid>
       <ion-col size="12" class="cont">
-        <h5>Crear Ticket Soporte</h5>
-        <form action="">
+        <form [formGroup]="ticketForm" class="ticket-form" (ngSubmit)="submitForm()">
+          <ng-template [ngIf]="nologged">
+            <div class="formGroup">
+              <ion-label>
+                Documento de identidad
+              </ion-label>
+              <ion-input type="number" formControlName="cc" placeholder="Ingrese documento de identidad" ></ion-input>
+            </div>
+            <div class="formGroup">
+              <ion-label>
+                Nombre y apellidos
+              </ion-label>
+              <ion-input type="text" formControlName="name" placeholder="Ingrese nombre completo" ></ion-input>
+            </div>
+            <div class="formGroup">
+              <ion-label>
+                Email
+              </ion-label>
+              <ion-input type="email" formControlName="email" placeholder="Ingrese direccion de correo electronico" ></ion-input>
+            </div>
+            <div class="formGroup">
+              <ion-label>
+                Telefono Celular
+              </ion-label>
+              <ion-input type="number" formControlName="phone" placeholder="Ingrese numero de telefono" ></ion-input>
+            </div>
+            
+          </ng-template>
           <div class="formGroup">
             <ion-label>
               Asunto
             </ion-label>
-            <ion-input placeholder="Ingrese el asunto"></ion-input>
+            <ion-input placeholder="Ingrese el asunto" formControlName="asunto"></ion-input>
           </div>
           <div class="formGroup">
             <ion-label>
               Comentario
             </ion-label>
-            <ion-textarea placeholder="Ingrese el comentario"></ion-textarea>
+            <ion-textarea placeholder="Ingrese el comentario" formControlName="comentario"></ion-textarea>
           </div>
-          <ion-button expand="block" [routerLink]="['/']" type="button" class="btn-emptycart">Crear Ticket</ion-button>
+          <div class="formGroup">
+            <ion-button expand="block" type="submit" class="btn-emptycart">Crear Ticket</ion-button>
+          </div>
         </form>
       </ion-col>
     </ion-grid>
-  </ng-template>
+  </ion-content>
+</ng-template>
 
-  <ng-template [ngIf]="read">
+<ng-template [ngIf]="read">
+  <ion-header>
+    <ion-toolbar>
+      <ion-item lines="none">
+        <ion-icon name="arrow-back-circle-outline" class="iconback" [routerLink]="['/profile']"></ion-icon>
+        <ion-title>
+          Ticket # {{infoTicket.id}}
+       </ion-title>
+      </ion-item>
+      
+      <ion-badge slot="end" style="margin-right: 15px;" [ngClass]="{'bg-danger': infoTicket.status==1, 'bg-warning':infoTicket.status==2,'bg-sucess':infoTicket.status==3 }">
+        {{status[infoTicket.status]}}
+      </ion-badge>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
     <ion-grid>
-      <ion-col>
-        <h5>Leer Ticket Soporte</h5>
-        
-      </ion-col>
+      <ng-template [ngIf]="chatTicket.length>0">
+        <ion-col >
+          <div class="chat">
+            <div  *ngFor="let arc of chatTicket">
+              <ng-template [ngIf]="arc.created_by==user.id">
+                <div class="bubble client" [attr.data-time]='arc.created'>
+                  <span>
+                    <span class="msg"> {{arc.client_response}}</span>
+                  </span>
+                </div>
+              </ng-template>
+              <ng-template [ngIf]="arc.created_by!=user.id">
+                <div class=" bubble operator" [attr.data-time]='arc.created'>
+                  <span >
+                    <span class="msg" [innerHTML]="arc.operator_response"></span>
+                  </span>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </ion-col>
+      </ng-template>
+      <ng-template [ngIf]="chatTicket.length==0">
+        <ion-col>
+          <h5 style="text-align: center;color: rgb(141, 141, 141);">Sin respuesta en este ticket :C</h5>
+        </ion-col>
+      </ng-template>
     </ion-grid>
-  </ng-template>
-</ion-content>
+  </ion-content>
+  <ion-footer>
+    <ng-template [ngIf]="infoTicket.status<3">
+      <ion-col size="12" class="cont">
+        <form [formGroup]="ticketChat" class="chatForm" (ngSubmit)="insertMSG()">
+          <div class="formm">
+            <div class="formGroup" slot="">
+              <ion-textarea rows="2" placeholder="Escriba aqui..." formControlName="msg"></ion-textarea>
+            </div>
+            <div class="formGroup" slot="end">
+              <ion-button  type="submit" class="btn-emptycart">
+                <ion-icon name="send-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </form>
+      </ion-col>
+    </ng-template>
+    <ng-template [ngIf]="infoTicket.status==3">
+      <ion-col size="12" class="cont">
+        <h6 style="text-align: center;color: rgb(141, 141, 141);">El ticket ya fue Resuelto</h6>
+      </ion-col>
+    </ng-template>
+    
+    
+  </ion-footer>
+</ng-template>
+

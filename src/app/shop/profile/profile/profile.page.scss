@@ -40,7 +40,10 @@ ion-content{
     }
     .dv-item{
         padding: 15px;
-        border-bottom: #48ac986b solid 1px;
+        -webkit-box-shadow: 0px 3px 1px 0px rgba(0,0,0,0.08); 
+        box-shadow: 0px 3px 1px 0px rgba(0,0,0,0.08);
+        
+        //border-bottom: #48ac986b solid 1px;
     }
     .box-2{
         //padding: 5px;

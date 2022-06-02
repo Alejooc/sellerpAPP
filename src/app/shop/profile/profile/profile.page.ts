@@ -15,6 +15,8 @@ export class ProfilePage implements OnInit {
   orders:boolean=false;
   address:boolean=false;
   data:[];
+  status=['Nuevo','pendiente','Esperando respuesta','Resuelto'];
+
   segmentChanged(ev: any) {
     console.log('Segment changed', ev);
     if (ev.detail.value == "pqr") {

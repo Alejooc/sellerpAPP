@@ -65,14 +65,16 @@
       <ion-col size="12">
         
         <ion-col size="12" class="noItemsBox">
-          <ion-button expand="block"  fill="outline" [routerLink]="['/pqr',user.id]" type="button" class="btn-emptycart">Crear PQR</ion-button>
+          <ion-button expand="block"  fill="outline" [routerLink]="['/pqr']" type="button" class="btn-emptycart">Crear PQR</ion-button>
         </ion-col>
         <ion-list>
-          <div *ngFor="let ticket of data,let i = index" class="dv-item">
-            <ion-label>PQR # {{i}}</ion-label>
-            <span style="display:block">Asunto: {{ticket.asunto}}</span>
-            <span style="display:block">Estado: {{ticket.status}}</span>
-            <span style="display:block">Fecha: {{ticket.created}}</span>
+          <div *ngFor="let ticket of data,let i = index" class="dv-item" [routerLink]="['/pqr',ticket.id]">
+            <ion-label style="color: #5c5c5c;font-weight:600;">Ticket # {{ticket.id}}</ion-label>
+            <span style="display:block;color: #585858;">Asunto: {{ticket.asunto}}</span>
+            <span style="display:block;color: #585858;">Estado: <ion-badge slot="end" style="margin-right: 15px;" [ngClass]="{'bg-danger': ticket.status==1, 'bg-warning':ticket.status==2,'bg-sucess':ticket.status==3 }">
+              {{status[ticket.status]}}
+            </ion-badge></span>
+            <span style="display:block;color: #585858;">Fecha: {{ticket.created}}</span>
           </div>
         </ion-list>
       </ion-col>
