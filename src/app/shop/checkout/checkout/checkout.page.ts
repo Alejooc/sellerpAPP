@@ -9,6 +9,11 @@ import { AuthService } from "../../../services/auth/auth.service";
 })
 export class CheckoutPage implements OnInit {
   loginForm:FormGroup;
+  activeDes:boolean=false;
+  total:number=0;
+  perdesc:any;
+  perCurrenc:any;
+  totalDesc:number=0;
   constructor(private formBuilder:FormBuilder,
     private storage:StorageService,
     private auth:AuthService) { }

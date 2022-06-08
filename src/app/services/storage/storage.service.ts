@@ -44,11 +44,10 @@ export class StorageService {
    return this.storage.get(key) || [];
   }
   public async getTotalCart(key:string){
-    let cart = await this.storage.get(key) || [];
+    const cart = await this.storage.get(key) || [];
     let total=0;
     cart.forEach(elm=> {
-      total = total+elm.qty*parseInt(elm.val);
-      console.log(total);
+      total += elm.qty*parseInt(elm.val);
     });
     return total;
    }

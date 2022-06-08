@@ -23,7 +23,6 @@ export class ToolbarComponent implements OnInit {
   constructor(public pg:PagemodalService,private router:Router,private storge:StorageService) { }
 
   ngOnInit() {
-    console.log(this.btnBack)
   }
   public get dismiss() : any {
     return this.pg.dismiss();

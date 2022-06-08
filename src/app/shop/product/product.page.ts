@@ -27,7 +27,6 @@ export class ProductPage implements OnInit {
           text: 'Ir a carrito',
           role: 'cancel',
           handler: async () => {
-            console.log('Go to cart clicked');
             this.router.navigate(['cart']);
           }
         }
@@ -36,26 +35,21 @@ export class ProductPage implements OnInit {
     await toast.present();
 
     const { role } = await toast.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
   ngOnInit() {
     this.getProduct();
-    console.log(this.slug);
   }
   getProduct(){
     this.service.getProduct(this.idprod,this.slug).subscribe(resp=>{
-      console.log(resp.data);
       if (resp.type == 1) {
         this.prod=resp.data;
-      }else{
-        console.log(resp.msg);
       }
     })
   }
   existeCart(id:number) {
       return this.cart.find(producto => producto.id === id);
   }
-  quitarCart(id) {
+  quitarCart(id: any) {
     const indice = this.cart.findIndex(p => p.id === id);
     if (indice != -1) {
        this.cart.splice(indice, 1);
@@ -68,8 +62,7 @@ export class ProductPage implements OnInit {
       this.prod.qty=1;
       this.cart.push(this.prod);
     }else{
-      let prodd= this.cart.find(produc => produc.id === this.prod.id);
-      console.log(prodd);
+      const prodd= this.cart.find(produc => produc.id === this.prod.id);
       prodd.qty=prodd.qty+1;   
       this.quitarCart(prodd.id);
       this.cart.push(prodd);

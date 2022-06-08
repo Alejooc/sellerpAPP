@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,7 +14,7 @@ import { CompsModule } from "../../components/comps.module";
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule,CompsModule
+    ProfilePageRoutingModule,CompsModule,ReactiveFormsModule
   ],
   declarations: [ProfilePage]
 })

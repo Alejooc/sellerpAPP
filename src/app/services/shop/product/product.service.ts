@@ -12,10 +12,10 @@ export class ProductService {
 
   //informacion del producto 
   getProduct(prod: any,slug: any):Observable<any>{
-    let _urlParams: any = new FormData();
+    const _urlParams: any = new FormData();
     _urlParams.append('slug', slug);
     _urlParams.append('product', prod);
 
-    return this.http.post(this.AppSettings.API+'get_product',_urlParams);
+    return this.http.post(`${this.AppSettings.API}get_product`,_urlParams);
   }
 }

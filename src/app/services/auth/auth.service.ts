@@ -13,12 +13,12 @@ export class AuthService {
   constructor(public http: HttpClient) { }
 
 
-  login(data):Observable<any>{
-    let _urlParams: any = new FormData();
+  login(data: { user: any; password: any; }):Observable<any>{
+    const _urlParams: any = new FormData();
     _urlParams.append('username',data.user);
     _urlParams.append('pass',data.password);
 
-    return this.http.post(this.AppSettings.API+'loginForm',_urlParams);
+    return this.http.post(`${this.AppSettings.API}loginForm`,_urlParams);
   }
   getDecodedAccessToken(token: string): any {
     try {

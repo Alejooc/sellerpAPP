@@ -11,7 +11,6 @@ export class CategoriesliderComponent implements OnInit {
 
   ngOnInit() {
     this.service.getCategories().subscribe(resp=>{
-      console.log(resp);
       resp.body.data.forEach(elm => {
         if (elm.inAPP == 1) {
           this.categories.push(elm);

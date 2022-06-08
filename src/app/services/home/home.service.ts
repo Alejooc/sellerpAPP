@@ -14,30 +14,30 @@ export class HomeService {
 
   // home data logos and more
   getHome():Observable<HttpResponse<any>>{
-    return this.http.get<any>(this.AppSettings.API+'get_storeData',{ observe: 'response' });
+    return this.http.get<any>(`${this.AppSettings.API}get_storeData`,{ observe: 'response' });
   }
   getCategories():Observable<HttpResponse<any>>{
-    return this.http.get<any>(this.AppSettings.API+'get_categories',{ observe: 'response' });
+    return this.http.get<any>(`${this.AppSettings.API}get_categories`,{ observe: 'response' });
   }
 
    // shop  products
    getProductsC(param:string,pag:number,cat:any):Observable<any>{
-    let _urlParams: any = new FormData();
+    const _urlParams: any = new FormData();
     _urlParams.append('fil', JSON.stringify({
       'search':param,
       'category':cat,
       'pag':pag
     }));
-    return this.http.post(this.AppSettings.API+'get_products',_urlParams);
+    return this.http.post(`${this.AppSettings.API}get_products`,_urlParams);
   }
 
   search(param:string,cat:string,pag:number):Observable<any>{
-    let _urlParams: any = new FormData();
+    const _urlParams: any = new FormData();
     _urlParams.append('fil', JSON.stringify({
       'category':cat,
       'search':param,
       'pag':pag
     }));
-    return this.http.post(this.AppSettings.API+'get_products',_urlParams);
+    return this.http.post(`${this.AppSettings.API}get_products`,_urlParams);
   }
 }

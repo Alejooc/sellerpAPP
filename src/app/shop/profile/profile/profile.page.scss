@@ -1,4 +1,15 @@
 ion-content{
+    .formAddress{
+        padding: 18px;
+        .formGroup{
+            margin-bottom: 10px;
+            ion-select,ion-input{
+                margin-top: 10px;
+                border: 2px solid #8888886b;
+                border-radius: 5px;
+            }
+        }
+    }
     .noItemsBox{
         text-align: center;
         margin-top: 145px;

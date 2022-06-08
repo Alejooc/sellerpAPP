@@ -35,10 +35,10 @@
           <ion-button expand="block"  fill="outline" [routerLink]="['/']" type="button" class="btn-emptycart">¡Comprar Ahora!</ion-button>
         </ion-col>
         <ion-list>
-          <div *ngFor="let address of data,let i = index" class="dv-item">
-            <ion-label>Direccion # {{i}}</ion-label>
-            <span style="display:block">Direccion: {{address.address}}</span>
-            <span style="display:block">Barrio: {{address.nbh}}</span>
+          <div *ngFor="let orders of data,let i = index" class="dv-item">
+            <ion-label>Orden # {{orders.id}}</ion-label>
+            <span style="display:block">Estado: {{orders.status}}</span>
+            <span style="display:block">Total: {{orders.total | currency:'COP':'symbol-narrow':'3.0'}}</span>
           </div>
         </ion-list>
       </ion-col>
@@ -50,15 +50,48 @@
           <h5>Sin Direcciones...</h5>
         </ion-col>
         <ion-col size="12" class="noItemsBox">
-          <ion-button expand="block"  fill="outline" [routerLink]="['/pqr']" type="button" class="btn-emptycart">Crear Direccion</ion-button>
+          <ion-button expand="block"  fill="outline" (click)="addAddress()" type="button" class="btn-emptycart">Crear Direccion</ion-button>
         </ion-col>
-        <ion-list>
-          <div *ngFor="let address of data,let i = index" class="dv-item">
+        <ion-list *ngIf="data.length>0">
+          <div *ngFor="let addresss of data,let i = index" class="dv-item">
             <ion-label>Direccion # {{i}}</ion-label>
-            <span style="display:block">Direccion: {{address.address}}</span>
-            <span style="display:block">Barrio: {{address.nbh}}</span>
+            <span style="display:block">Direccion: {{addresss.address}}</span>
+            <span style="display:block">Barrio: {{addresss.nbh}}</span>
           </div>
         </ion-list>
+    </ion-col>
+    </ng-template>
+    <ng-template [ngIf]="newAddress">
+      <ion-col size="12">
+        <form class="formAddress" [formGroup]="addressForm" (ngSubmit)="saveForm()">
+          <div class="formGroup">
+            <ion-label>
+              Direccion
+            </ion-label>
+            <ion-input type="text"  placeholder="ejem: Calle 1#2a-3" formControlName="address"></ion-input>
+          </div>
+          <div class="formGroup">
+            <ion-label>Departamento</ion-label>
+            <ion-select placeholder="Seleccione un departamento" (ionChange)="citysApl($event)" formControlName="dep">
+              <ion-select-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ion-select-option>
+            </ion-select>
+          </div>
+          <div class="formGroup">
+            <ion-label>Ciudad</ion-label>
+            <ion-select placeholder="Select One" formControlName="city">
+              <ion-select-option *ngFor="let city of cit" [value]="city.id">{{city.name}}</ion-select-option>
+            </ion-select>
+          </div>
+          <div class="formGroup" >
+            <ion-label>
+              Barrio
+            </ion-label>
+            <ion-input type="text"  placeholder="ejem: Barrio los colores"  formControlName="barrio"></ion-input>
+          </div>
+          <ion-col size="12" class="noItemsBox">
+            <ion-button expand="block"  fill="outline" type="submit" class="btn-emptycart">Guardar Direccion</ion-button>
+          </ion-col>
+        </form>
     </ion-col>
     </ng-template>
     <ng-template [ngIf]="pqr">

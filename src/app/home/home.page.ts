@@ -38,23 +38,16 @@ export class HomePage implements OnInit {
   };
   loadData(event) {
     setTimeout(() => {
-      console.log('Done');
-      
       this.service.getProductsC(this.busqueda,this.page,this.categorie).subscribe(resp=>{
-        console.log(resp);
         if (resp.type == 1) {
           this.page= resp.data.id;
           for (let prod of resp.resp) {
-            console.log(prod);
             this.prods.push(prod);
           }
           
-        }else{
-          console.log(resp.msg);
         }
       })
       event.target.complete();
-      console.log('infiniti scroll');
       // App logic to determine if all data is loaded
       // and disable the infinite scroll
       /*if (data.length === 1000) {
@@ -70,18 +63,14 @@ export class HomePage implements OnInit {
   }
   getProducts(){
     this.service.getProductsC(this.busqueda,this.page,this.categorie).subscribe(resp=>{
-      console.log(resp.resp);
       if (resp.type == 1) {
         this.page=resp.data.id;
         this.prods=[...resp.resp!];
-      }else{
-        console.log(resp.msg);
       }
     })
   }
   getStoreData(){
     this.service.getHome().subscribe(resp=>{
-      console.log(resp.body);
       this.header= resp.body.data.logo;
     })
   }
@@ -98,13 +87,10 @@ export class HomePage implements OnInit {
         return;
       }
       this.service.search(x,this.categorie,this.page).subscribe(resp=>{
-        console.log(resp);
         if (resp.type == 1) {
           this.page=resp.data.id;
           this.prods=[...resp.resp!];
           this.busqueda=x;
-        }else{
-          console.log(resp.msg);
         }
       })
     });
@@ -114,12 +100,9 @@ export class HomePage implements OnInit {
       this.filtroSearch = true;
     }
     this.getProducts();
-    console.log(this.categorie);
-    console.log('LOAD');
-    
   }
-  shortname(name){    
-    let shortname = name.substr(0,21)    
+  shortname(name: string){    
+    const shortname = name.substr(0,21)    
     return shortname.toLowerCase()
     .trim()
     .split(' ')

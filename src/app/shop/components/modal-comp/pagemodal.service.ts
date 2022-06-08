@@ -13,10 +13,10 @@ export class PagemodalService {
   constructor(public http: HttpClient,public pg:ModalController) { }
    //informacion del cupon
    getCupon(cupon: any,cart:any):Observable<any>{
-    let _urlParams: any = new FormData();
+    const _urlParams: any = new FormData();
     _urlParams.append('cupon', cupon);
     _urlParams.append('cartVal', cart);
-    return this.http.post(this.AppSettings.API+'get_validateCupon',_urlParams);
+    return this.http.post(`${this.AppSettings.API}get_validateCupon`,_urlParams);
   }
   
   dismiss() {

@@ -26,12 +26,10 @@ export class PagemodalPage implements OnInit {
         txt:["",[Validators.required,Validators.minLength(4)]]
       }
     )
-    let f =await this.storage.get('cuponData');
+    const f =await this.storage.get('cuponData');
     if (f!=null) {
       this.showA=true;
-      this.cuponDa = f;
-      console.log(f);
-      
+      this.cuponDa = f;      
     }  
   }
   delCupon(){
@@ -39,7 +37,7 @@ export class PagemodalPage implements OnInit {
     
   }
   async checkCupon(){
-    let val = await this.storage.getTotalCart('cart');
+    const val = await this.storage.getTotalCart('cart');
     this.service.getCupon(this.cuponForm.get('txt').value,val).subscribe( resp =>{
       if (resp.type ==1) {
         this.cupon = resp;

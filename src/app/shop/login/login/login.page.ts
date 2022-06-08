@@ -30,9 +30,7 @@ export class LoginPage implements OnInit {
 
     }else{
       this.auth.login(this.loginForm.value).subscribe(resp=>{
-        console.log(resp);
         if (resp.tipo ==1) {
-          console.log(resp.msg);
           this.storage.set('userData',{token:resp.info,decode:this.auth.getDecodedAccessToken(resp.info)});
           this.router.navigate(['/']);
           
@@ -42,9 +40,7 @@ export class LoginPage implements OnInit {
         
   
       })
-    }
-    console.log(this.loginForm);
-    
+    }    
   }
 
 }

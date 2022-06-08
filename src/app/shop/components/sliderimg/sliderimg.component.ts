@@ -11,16 +11,15 @@ SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 export class SliderimgComponent implements OnInit {
   api = new AppSettings();
   @Input()
-  imgs;
+  imgs: any;
   @Input()
-  etiqueta;
+  etiqueta: any;
   @Input()
-  imgpromo;
+  imgpromo: any;
   
   constructor() { }
 
   ngOnInit() {
-    console.log('dsfsdfsf');
   }
 
 }

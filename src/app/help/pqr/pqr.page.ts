@@ -16,7 +16,7 @@ export class PqrPage implements OnInit {
   ticketForm:FormGroup;
   ticketChat:FormGroup;
   user: any;
-  infoTicket:object={};
+  infoTicket={ id:0,status:0 };
   slug = this.route.snapshot.params.ticket; // obtener el slug para buscar el producto -> API
   chatTicket=[];
   status=['Nuevo','pendiente','Esperando respuesta','Resuelto'];
@@ -28,7 +28,6 @@ export class PqrPage implements OnInit {
           {
             msg:["",[Validators.required]]
           })
-        console.log(val);
         this.read=true;
         this.get_msg(val.ticket);
       }else{
@@ -36,24 +35,19 @@ export class PqrPage implements OnInit {
         
       }
       
-      let data=  await this.storage.get('userData') || [];
-      console.log(data);
-      
+      const data=  await this.storage.get('userData') || [];      
       if (data.length==0) {
         this.nologged=true;
         this.formsVa();
         //this.router.navigate(['/login']);
       }else{
         this.user =data.decode.info;
-        console.log(this.user);
         this.nologged=false;
       }
     });
   }
-  get_msg(val){
-    this.service.get_msg_ticket(val).subscribe(rep=>{
-      console.log(rep);
-      
+  get_msg(val: number){
+    this.service.get_msg_ticket(val).subscribe(rep=>{      
       this.infoTicket=rep.data;
       this.chatTicket=rep.msg;
     })
@@ -77,9 +71,7 @@ export class PqrPage implements OnInit {
     
   }
   formsVa(){
-    if (this.nologged===true) {
-      console.log('No esta logeado el usuario');
-      
+    if (this.nologged===true) {      
       this.ticketForm= this.formBuilder.group(
         {
           asunto:["",[Validators.required]],
@@ -100,22 +92,16 @@ export class PqrPage implements OnInit {
     }
   }
   ngOnInit() {
-    console.log(this.nologged);
-    this.formsVa();
-    
-      
+    this.formsVa();  
+    this.get_msg(this.slug);     
   }
   insertMSG(){
-    console.log(this.slug);
-    
     if (this.ticketChat.invalid) {
       console.warn('empty form');
       // alerta del posible error :v
     }else{
       this.service.set_new_message(this.ticketChat.value,this.user.id,this.slug).subscribe(resp=>{
-        console.log(resp);
         if (resp.type==1) {
-          console.log('ok');
           this.get_msg(this.slug);
           this.ticketChat.reset();
         }else{
@@ -127,27 +113,25 @@ export class PqrPage implements OnInit {
   submitForm(){
     if (this.ticketForm.invalid) {
       console.warn('empty form');
+      return;
       // alerta del posible error :v
-    }else{
-      let data = {
-        formu:this.ticketForm.value,
-        user:this.user||[]
-      }
-      if (this.user!=undefined) {
-        data.formu.cc=this.user.docid;
-        data.formu.name=this.user.docid;
-        data.formu.uid=this.user.id;
-      }
-      this.service.set_new_ticket(data).subscribe(resp=>{
-        console.log(resp);
-        if (resp.type==1) {
-          console.log('ok');
-          this.presentAlert('Haz Creado un nuevo ticket, lo revisaremos cuanto antes!','¡Ticket Creado!');
-        }else{
-          // alerta del posible error :v
-        }
-      })
     }  
+    const data = {
+      formu:this.ticketForm.value,
+      user:this.user||[]
+    }
+    if (this.user!=undefined) {
+      data.formu.cc=this.user.docid;
+      data.formu.name=this.user.docid;
+      data.formu.uid=this.user.id;
+    }
+    this.service.set_new_ticket(data).subscribe(resp=>{
+      if (resp.type==1) {
+        this.presentAlert('Haz Creado un nuevo ticket, lo revisaremos cuanto antes!','¡Ticket Creado!');
+      }else{
+        // alerta del posible error :v
+      }
+    })  
   }
 
 }
