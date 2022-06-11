@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <app-toolbar [btnCart]="true" [btnUser]="true"></app-toolbar>
   <section class="hd-box">
-    <ion-img [src]="api.URLIMG+'/logos/fondo.png'" ></ion-img>
+    <ion-img [src]="api.URLIMG+'/logos/fondo.png'" alt="parabarberos" ></ion-img>
     <form [formGroup]="searchForm">
       <ion-item  lines="none" class="searchContent">
         <ion-searchbar animated  placeholder="Buscar productos" class="search" formControlName="txt"></ion-searchbar>
@@ -16,7 +16,7 @@
           <ion-card>
             <div class="img">
               <ion-badge color="success" class="promobg">Promo</ion-badge>
-              <ion-img [src]="api.URLIMG+'products/'+prod.img1" alt="ff"></ion-img>
+              <ion-img [src]="api.URLIMG+'products/thumbs/'+prod.img1" alt="{{prod.slug}}"></ion-img>
             </div>
             <ion-card-content>
               <ion-text class="nameprod">
