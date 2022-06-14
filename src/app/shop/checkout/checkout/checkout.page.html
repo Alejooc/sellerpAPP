@@ -13,28 +13,88 @@
           <span>o</span>
         </div>
         
-        <ion-button expand="block" fill="outline" type="submit" class="btn-login">Iniciar Sesion</ion-button>
+        <ion-button expand="block" fill="outline" type="button" class="btn-login" [routerLink]="['/login']">Iniciar Sesion</ion-button>
 
-        <form class="formulogin" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <form class="formulogin" [formGroup]="checkoutForm">
           <div class="formGroup">
-            <ion-label>Usuario</ion-label>
-            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+            <ion-label>Nombre Completo</ion-label>
+            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="name" required></ion-input>
           </div>
           <div class="formGroup">
-            <ion-label>Usuario</ion-label>
-            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+            <ion-label>Documento de identidad</ion-label>
+            <ion-input type="number" placeholder="Ingrese su usuario" formControlName="doc" required></ion-input>
           </div>
           <div class="formGroup">
-            <ion-label>Usuario</ion-label>
-            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+            <ion-label>Email</ion-label>
+            <ion-input type="email" placeholder="Ingrese su usuario" formControlName="email"></ion-input>
           </div>
           <div class="formGroup">
-            <ion-label>Usuario</ion-label>
-            <ion-input type="text" placeholder="Ingrese su usuario" formControlName="user"></ion-input>
+            <ion-label>Telefono / Whatsapp</ion-label>
+            <ion-input type="number" placeholder="Ingrese su usuario" formControlName="phone" required></ion-input>
+          </div>
+          
+          <ng-template [ngIf]="login">
+            <div  class="formGroup">
+              <ion-label>Direcciones</ion-label>
+              <div class="address">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="6" *ngFor="let address of myAddress" >
+                      <div class="item" (click)="selectAddress(address.id)">
+                        <p>{{address.address}}</p>
+                        <p>Barrio: {{address.nbh}}</p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+              
+            </div>
+            <ion-button expand="block"  class="addDress" fill="outline">
+              <ion-icon name="navigate-outline" slot="start"></ion-icon>
+              Crear Direccion
+            </ion-button>
+          </ng-template>
+          <ng-template [ngIf]="login==false">
+            <div  class="formGroup">
+              <ion-label>Informacion de entrega</ion-label>
+              <div class="address">
+                <div class="formGroup">
+                  <ion-label>Direccion</ion-label>
+                  <ion-input type="text" placeholder="Ingrese su usuario" formControlName="address" required></ion-input>
+                </div>
+                <div class="formGroup">
+                  <ion-label>Barrio</ion-label>
+                  <ion-input type="text" placeholder="Ingrese su usuario" formControlName="barrio" required></ion-input>
+                </div>
+                <div class="formGroup">
+                  <ion-label>Departamento</ion-label>
+                  <ion-select placeholder="Seleccione un departamento" (ionChange)="citysApl($event)" formControlName="dep">
+                    <ion-select-option *ngFor="let state of states"  [value]="state.id">{{state.name}}</ion-select-option>
+                  </ion-select>
+                </div>
+                <div class="formGroup">
+                  <ion-label>Ciudad</ion-label>
+                  <ion-select placeholder="Seleccione un departamento" (ionChange)="paym($event)"  formControlName="city">
+                    <ion-select-option *ngFor="let city of cit" [value]="city.id">{{city.name}}</ion-select-option>
+                  </ion-select>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          
+          
+          <h6>Metodo de pago</h6>
+          <div  class="formGroup">
+            
+            <ion-select placeholder="Seleccione un metodo de pago" formControlName="payme">
+              <ion-select-option *ngFor="let pamet of payme" [value]="pamet.id">{{pamet.wcname}}</ion-select-option>
+            </ion-select>
           </div>
           <div  class="formGroup">
-            <ion-label>Contraseña</ion-label>
-            <ion-input type="password" formControlName="password" placeholder="Ingrese su contraseña"></ion-input>
+            <ion-checkbox checked="true" style="margin-right: 5px;"></ion-checkbox>
+            <ion-label>Acepto los términos y condiciones.</ion-label>
+            
           </div>
         </form>
       </div>
@@ -80,14 +140,8 @@
           </span>
         </ion-item>
       </ng-template>
-      <ion-item lines="none" class="colorText">
-        <span slot="start">Entrega estimada
-        </span>
-        <span slot="end" class="cuponText">
-         4 a 5 dias habiles
-        </span>
-      </ion-item>
-      <ion-button expand="block"  class="">
+      
+      <ion-button expand="block"  class="" type="submit" (click)="submitForm()">
         <ion-icon name="cart-outline" slot="start"></ion-icon>
         finalizar compra
       </ion-button>  

@@ -20,16 +20,41 @@
         }
     }
     .formGroup{
-        ion-label{
-            margin-bottom: 20px!important;
-        }
-        ion-input{
-            margin-bottom: 18px!important;
-            border: 1px solid #e9ecef;
+        ion-select,ion-input{
+            margin-bottom: 14px;
+            border: 2px solid #8888886b;
             border-radius: 5px;
         }
+        ion-label{
+            margin-bottom: 5px!important;
+        }
+        
+        .address{  
+            margin-top:15px;
+            padding: 0px;
+            .item{
+                border-radius: 5px;
+                border: 1px solid #48ac98;
+                padding: 10px;
+            }  
+            
+        }
+        
     }
+    .addDress{
+       //--background:#48ac98;
+       --padding-start: 20px;
+       --padding-end: 20px;
+       --padding-bottom:23px;
+       --padding-top:23px;
+       margin-bottom: 38px;
+       --border-color:#48ac98;
+       color:#48ac98;
+       --border-width:1px;	
+    }
+    
 }
+
 .btnctr{
     padding: 10px;
     margin-bottom: 10px;
@@ -39,6 +64,7 @@
         --padding-end: 20px;
         --padding-bottom:23px;
         --padding-top:23px;
+        margin-top: 15px;
     }
     background: rgb(250, 250, 250);
     .cuponText{

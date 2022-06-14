@@ -11,7 +11,7 @@
         <ion-col size="12" *ngFor="let prod of cart,let i = index">
           <ion-item lines="none">
             <ion-thumbnail slot="start">
-              <ion-img [src]="api.URLIMG+'products/'+prod.imgs[0]" alt="ff"></ion-img>
+              <ion-img [src]="api.URLIMG+'products/thumbs/'+prod.imgs[0]" alt="ff"></ion-img>
             </ion-thumbnail>
             <ion-label>
               <ion-text class="nameprod">
@@ -75,14 +75,7 @@
             </span>
           </ion-item>
         </ng-template>
-        <ion-item lines="none" class="colorText">
-          <span slot="start">Entrega estimada
-          </span>
-          <span slot="end" class="cuponText">
-            4 a 5 dias habiles
-          </span>
-        </ion-item>
-        <ion-button expand="block" class="">
+        <ion-button expand="block" class="" [routerLink]="['/checkout']">
           <ion-icon name="cart-outline" slot="start"></ion-icon>
           finalizar compra
         </ion-button>
