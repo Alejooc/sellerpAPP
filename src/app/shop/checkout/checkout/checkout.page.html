@@ -109,7 +109,7 @@
       <ion-item lines="none">
         <span slot="start" class="colorText price">Subtotal</span>
         <span slot="end"  class="cuponText">
-         $780.000
+          {{total | currency:'COP':'symbol-narrow':'3.0'}}
         </span>
       </ion-item>
       <ion-item lines="none">
@@ -121,10 +121,10 @@
       <ion-item lines="none">
         <span slot="start" class="colorText price">Total</span>
         <span slot="end"  class="cuponText">
-          $797.000
+          {{total | currency:'COP':'symbol-narrow':'3.0'}}
         </span>
       </ion-item>
-      <ng-template [ngIf]="activeDes">
+      <!--<ng-template [ngIf]="activeDes">
         <div class="prices">
           <span slot="start" class="colorText" style="display: block;">Antes: {{total | currency:'COP':'symbol-narrow':'3.0'}} <ion-badge color="danger">{{perdesc}}%  desc</ion-badge>
           </span>
@@ -133,13 +133,7 @@
           <span slot="start" class="colorText price" style="display: block;">Ahora: {{totalDesc | currency:'COP':'symbol-narrow':'3.0'}}
           </span>
         </div>
-      </ng-template>
-      <ng-template [ngIf]="activeDes === false">
-        <ion-item lines="none">
-          <span slot="start" class="colorText price">{{total | currency:'COP':'symbol-narrow':'3.0'}}
-          </span>
-        </ion-item>
-      </ng-template>
+      </ng-template>!-->
       
       <ion-button expand="block"  class="" type="submit" (click)="submitForm()">
         <ion-icon name="cart-outline" slot="start"></ion-icon>

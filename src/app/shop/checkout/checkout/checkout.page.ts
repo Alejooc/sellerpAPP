@@ -5,6 +5,8 @@ import { AuthService } from "../../../services/auth/auth.service";
 import { ProfileService } from "../../../services/shop/profile/profile.service";
 import {ActivatedRoute,Router } from '@angular/router';
 import { CheckoutService } from "../../../services/shop/checkout/checkout.service";
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.page.html',
@@ -32,10 +34,12 @@ export class CheckoutPage implements OnInit {
     private auth:AuthService,
     private servicePro:ProfileService,
     private checkServide:CheckoutService,
-    route:ActivatedRoute) { 
+    route:ActivatedRoute,
+    public alertController: AlertController) { 
       route.params.subscribe(async val => {
         const data=  await this.storage.get('userData') || [];
-        this.ctotal = await this.storage.getTotalCart('cart');
+        this.cart =  await this.storage.get('cart') || [];
+        await this.load();
         if (data.length==0) {
           this.login=false;
           this.logg=0;
@@ -50,15 +54,37 @@ export class CheckoutPage implements OnInit {
       
       });
     }
-
-
+    async load(){
+      //this.total = await this.storage.getTotalCart('cart');
+      this.cart = await this.storage.get('cart') || []; // trae el carrito;
+      if (this.cart.length >0) {
+        this.cart.forEach((prod: { val: number; qty: number; }) => {
+          this.total = this.total+(prod.val*prod.qty);
+        });
+        
+      }else{
+        this.total = 0;
+      }
+    }
+    async presentAlert(msg) {
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Alert',
+        subHeader: 'Subtitle',
+        message: msg,
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+  
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    }
     ngOnInit() {     
       this.servicePro.getStates().subscribe(resp=>{
         this.states=resp.body.states;
         this.citys=resp.body.citys;
       })
-      this.cart =  this.storage.get('cart') || [];
-
       this.checkoutForm= this.formBuilder.group(
         {
           name:["",[Validators.required]],
@@ -70,8 +96,8 @@ export class CheckoutPage implements OnInit {
           city:["",[Validators.required]],
           barrio:["",[Validators.required]],
           payme:["",[Validators.required]],
-          isLogged:[this.logg],
-          total:[this.ctotal]
+          isLogged:this.logg,
+          total:this.ctotal
         }
       )
     }
@@ -82,6 +108,7 @@ export class CheckoutPage implements OnInit {
       }else{
         this.checkServide.sendOrder(this.checkoutForm.value).subscribe(resp=>{
           console.log(resp);
+          this.presentAlert(resp.msg);
         })
       }
       
