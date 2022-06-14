@@ -31,7 +31,9 @@ export class CheckoutService {
     console.log(f);
     this.car =f;
   }
-  sendOrder(order:any):Observable<any>{
+  sendOrder(order:any,total:number,isLogged):Observable<any>{
+    order.total=total;
+    order.isLogged=isLogged;
     const _urlParams: any = new FormData();
     _urlParams.append('payform',JSON.stringify(order));
     _urlParams.append('prods',JSON.stringify(this.car));

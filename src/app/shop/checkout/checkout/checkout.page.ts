@@ -39,6 +39,7 @@ export class CheckoutPage implements OnInit {
       route.params.subscribe(async val => {
         const data=  await this.storage.get('userData') || [];
         this.cart =  await this.storage.get('cart') || [];
+        this.checkoutForm.reset();
         await this.load();
         if (data.length==0) {
           this.login=false;
@@ -49,7 +50,16 @@ export class CheckoutPage implements OnInit {
             this.myAddress= resp.data;
             this.storage.set('address',this.myAddress[0]);
             this.logg=1;
+            this.checkoutForm.get('city').setValue(this.myAddress[0].city)
+            this.checkoutForm.get('dep').setValue(this.myAddress[0].state)
+            this.checkoutForm.get('barrio').setValue(this.myAddress[0].nbh)
+
           })
+          
+          this.checkoutForm.get('name').setValue(data.decode.info.name)
+          this.checkoutForm.get('doc').setValue(data.decode.info.docid)
+          this.checkoutForm.get('email').setValue(data.decode.info.email)
+          this.checkoutForm.get('phone').setValue(data.decode.info.phone)
         }
       
       });
@@ -69,8 +79,7 @@ export class CheckoutPage implements OnInit {
     async presentAlert(msg) {
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',
-        header: 'Alert',
-        subHeader: 'Subtitle',
+        header: 'Alerta',
         message: msg,
         buttons: ['OK']
       });
@@ -95,9 +104,8 @@ export class CheckoutPage implements OnInit {
           dep:["",[Validators.required]],
           city:["",[Validators.required]],
           barrio:["",[Validators.required]],
-          payme:["",[Validators.required]],
+          payme:[""],
           isLogged:this.logg,
-          total:this.ctotal
         }
       )
     }
@@ -106,7 +114,7 @@ export class CheckoutPage implements OnInit {
         console.warn('empty form');
         
       }else{
-        this.checkServide.sendOrder(this.checkoutForm.value).subscribe(resp=>{
+        this.checkServide.sendOrder(this.checkoutForm.value,this.total,this.logg).subscribe(resp=>{
           console.log(resp);
           this.presentAlert(resp.msg);
         })
