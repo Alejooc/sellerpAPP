@@ -29,14 +29,19 @@ export class CheckoutPage implements OnInit {
   cart: any;
   logg: any;
   ctotal:any;
+  transport: any;
+  selecCity: any;
+  deliveryPrice: any=0;
   constructor(private formBuilder:FormBuilder,
     private storage:StorageService,
     private auth:AuthService,
     private servicePro:ProfileService,
     private checkServide:CheckoutService,
     route:ActivatedRoute,
-    public alertController: AlertController) { 
+    public alertController: AlertController,
+    private router:Router) { 
       route.params.subscribe(async val => {
+        this.total =0;
         const data=  await this.storage.get('userData') || [];
         this.cart =  await this.storage.get('cart') || [];
         this.checkoutForm.reset();
@@ -45,17 +50,18 @@ export class CheckoutPage implements OnInit {
           this.login=false;
           this.logg=0;
         }else{
+          this.login=true;
+          this.user= data.decode.info
           this.checkServide.getAddress(data.decode.info.id).subscribe(resp=>{
-            console.log(resp);
+            this.logg=1;
             this.myAddress= resp.data;
             this.storage.set('address',this.myAddress[0]);
-            this.logg=1;
-            this.checkoutForm.get('city').setValue(this.myAddress[0].city)
-            this.checkoutForm.get('dep').setValue(this.myAddress[0].state)
-            this.checkoutForm.get('barrio').setValue(this.myAddress[0].nbh)
+            this.checkoutForm.get('city').setValue(this.myAddress[0].city);
+            this.checkoutForm.get('dep').setValue(this.myAddress[0].state);
+            this.checkoutForm.get('barrio').setValue(this.myAddress[0].nbh);
+            this.checkoutForm.get('address').setValue(this.myAddress[0].address)
 
           })
-          
           this.checkoutForm.get('name').setValue(data.decode.info.name)
           this.checkoutForm.get('doc').setValue(data.decode.info.docid)
           this.checkoutForm.get('email').setValue(data.decode.info.email)
@@ -65,6 +71,7 @@ export class CheckoutPage implements OnInit {
       });
     }
     async load(){
+      this.total =0;
       //this.total = await this.storage.getTotalCart('cart');
       this.cart = await this.storage.get('cart') || []; // trae el carrito;
       if (this.cart.length >0) {
@@ -76,18 +83,40 @@ export class CheckoutPage implements OnInit {
         this.total = 0;
       }
     }
-    async presentAlert(msg) {
-      const alert = await this.alertController.create({
-        cssClass: 'my-custom-class',
-        header: 'Alerta',
-        message: msg,
-        buttons: ['OK']
-      });
+    async presentAlert(msg,type) {
+      if (type!=1) {
+        const alert = await this.alertController.create({
+          cssClass: 'my-custom-class',
+          header: 'Alerta',
+          message: msg,
+          buttons: [{
+            text:'Salir',
+            handler:()=>{
+              this.router.navigate(['/cart']);
+            }
+          }]
+        });
+        await alert.present();
+      }else{
+        const alert = await this.alertController.create({
+          cssClass: 'my-custom-class',
+          header: 'Alerta',
+          message: msg,
+          buttons: [{
+            text:'Entendido',
+            handler:()=>{
+              this.router.navigate(['/']);
+            }
+          }]
+
+        });
+        await this.storage.removeKey('cart');
+        await alert.present();
+      }
+      
   
-      await alert.present();
-  
-      const { role } = await alert.onDidDismiss();
-      console.log('onDidDismiss resolved with role', role);
+      
+
     }
     ngOnInit() {     
       this.servicePro.getStates().subscribe(resp=>{
@@ -105,21 +134,35 @@ export class CheckoutPage implements OnInit {
           city:["",[Validators.required]],
           barrio:["",[Validators.required]],
           payme:[""],
+          transp:["",[Validators.required]],
           isLogged:this.logg,
         }
       )
     }
     submitForm(){
+      console.log( this.checkoutForm.value);
+
       if (this.checkoutForm.invalid) {
         console.warn('empty form');
-        
+        this.presentAlert('Complete el formulario',0);
       }else{
-        this.checkServide.sendOrder(this.checkoutForm.value,this.total,this.logg).subscribe(resp=>{
+        this.checkServide.sendOrder(this.checkoutForm.value,this.total,this.logg,this.user).subscribe(resp=>{
           console.log(resp);
-          this.presentAlert(resp.msg);
+          if (resp.tipo ==1) {
+            this.presentAlert(resp.msg,1);
+          }else{
+            this.presentAlert(resp.msg,resp.tipo);
+          }
+          
         })
       }
       
+    }
+    calcDelivery(){
+      this.checkServide.getDelivery(this.checkoutForm.value,this.total).subscribe(resp=>{
+        console.log(resp);
+        this.deliveryPrice = resp.info.delivery;
+      })
     }
     citysApl(ev:any){
       this.cit=[];
@@ -129,17 +172,30 @@ export class CheckoutPage implements OnInit {
           this.cit.push(element)
         }
       });
+      this.calcDelivery();
     }
     paym(ev:any){
       this.checkoutForm.controls['payme'].reset();
-      console.log(ev);
+      this.selecCity=ev.detail.value;
       const selectCity=ev.detail.value;
       this.checkServide.getPaymet(selectCity).subscribe(resp=>{
         this.payme=resp.data;
       })
+      this.checkServide.getTransport().subscribe(resp=>{
+        this.transport=resp.data;
+      })
+      this.calcDelivery();
     }
-    selectAddress(address:number){
-      console.log(address);
+    selectAddress(address:number,city){
+      this.calcDelivery();
+      console.log(this.selecCity);
+      this.checkServide.getTransport().subscribe(resp=>{
+        console.log(resp);
+        this.transport=resp.data;
+      })
+      this.checkServide.getPaymet(city).subscribe(resp=>{
+        this.payme=resp.data;
+      })
       
     }
 

@@ -54,7 +54,6 @@
         </ion-col>
         <ion-list *ngIf="data.length>0">
           <div *ngFor="let addresss of data,let i = index" class="dv-item">
-            <ion-label>Direccion # {{i}}</ion-label>
             <span style="display:block">Direccion: {{addresss.address}}</span>
             <span style="display:block">Barrio: {{addresss.nbh}}</span>
           </div>

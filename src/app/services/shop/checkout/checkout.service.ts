@@ -26,12 +26,29 @@ export class CheckoutService {
     _urlParams.append('user',JSON.stringify(user));
     return this.http.post(`${this.AppSettings.API}get_addressU`,_urlParams);
   }
+  getTransport(user=1):Observable<any>{
+    const _urlParams: any = new FormData();
+    _urlParams.append('user',JSON.stringify(user));
+    return this.http.post(`${this.AppSettings.API}get_transports`,_urlParams);
+  }
+  getDelivery(data,total):Observable<any>{
+    console.log(data);
+    
+    const _urlParams: any = new FormData();
+    _urlParams.append('calcform',JSON.stringify(data));
+    _urlParams.append('subtotal',JSON.stringify(total));
+    _urlParams.append('prods',JSON.stringify(this.car));
+    return this.http.post(`${this.AppSettings.API}calc_delivery`,_urlParams);
+  }
   async cart(): Promise<void>{
     let f = await this.stora.get('cart');
     console.log(f);
     this.car =f;
   }
-  sendOrder(order:any,total:number,isLogged):Observable<any>{
+  sendOrder(order:any,total:number,isLogged,user):Observable<any>{
+    if (isLogged>0) {
+      order.Uid=user.id;
+    }
     order.total=total;
     order.isLogged=isLogged;
     const _urlParams: any = new FormData();

@@ -6,14 +6,17 @@
   <ion-grid>
     <ion-col class="boxContent">
       <div class="form">
-        <div class="title">
-          <h6>
-            Registrar y Comprar
-          </h6>
-          <span>o</span>
-        </div>
+        <ng-template [ngIf]="!login">
+          <div class="title">
+            <h6>
+              Registrar y Comprar
+            </h6>
+            <span>o</span>
+          </div>
+          
+          <ion-button expand="block" fill="outline" type="button" class="btn-login" [routerLink]="['/login']">Iniciar Sesion</ion-button>
+        </ng-template>
         
-        <ion-button expand="block" fill="outline" type="button" class="btn-login" [routerLink]="['/login']">Iniciar Sesion</ion-button>
 
         <form class="formulogin" [formGroup]="checkoutForm">
           <div class="formGroup">
@@ -40,8 +43,8 @@
                 <ion-grid>
                   <ion-row>
                     <ion-col size="6" *ngFor="let address of myAddress" >
-                      <div class="item" (click)="selectAddress(address.id)">
-                        <p>{{address.address}}</p>
+                      <div class="item" (click)="selectAddress(address.id,address.city)">
+                        <p>Direccion: {{address.address}}</p>
                         <p>Barrio: {{address.nbh}}</p>
                       </div>
                     </ion-col>
@@ -50,10 +53,10 @@
               </div>
               
             </div>
-            <ion-button expand="block"  class="addDress" fill="outline">
+            <!--<ion-button expand="block"  class="addDress" fill="outline">
               <ion-icon name="navigate-outline" slot="start"></ion-icon>
               Crear Direccion
-            </ion-button>
+            </ion-button>!-->
           </ng-template>
           <ng-template [ngIf]="login==false">
             <div  class="formGroup">
@@ -82,7 +85,12 @@
               </div>
             </div>
           </ng-template>
-          
+          <div  class="formGroup">
+            <ion-label>Transportadora</ion-label>
+            <ion-select placeholder="Seleccione un metodo de pago" formControlName="transp" (ionChange)="calcDelivery()">
+              <ion-select-option *ngFor="let transp of transport" [value]="transp.id">{{transp.name}}</ion-select-option>
+            </ion-select>
+          </div>
           
           <h6>Metodo de pago</h6>
           <div  class="formGroup">
@@ -112,10 +120,10 @@
           {{total | currency:'COP':'symbol-narrow':'3.0'}}
         </span>
       </ion-item>
-      <ion-item lines="none">
+      <ion-item lines="none"  *ngIf="deliveryPrice > 0">
         <span slot="start" class="colorText price">Envio</span>
         <span slot="end"  class="cuponText">
-          $17.000
+          {{deliveryPrice | currency:'COP':'symbol-narrow':'3.0'}}
         </span>
       </ion-item>
       <ion-item lines="none">

@@ -34,6 +34,7 @@ export class CartPage implements OnInit {
     
   }
   async load(){
+    this.total =0;
     //this.total = await this.storage.getTotalCart('cart');
     this.cart = await this.storage.get('cart') || []; // trae el carrito;
     if (this.cart.length >0) {
