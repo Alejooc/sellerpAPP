@@ -102,7 +102,7 @@
           <h6>Metodo de pago</h6>
           <div  class="formGroup">
             
-            <ion-select placeholder="Seleccione un metodo de pago" formControlName="payme">
+            <ion-select placeholder="Seleccione un metodo de pago" formControlName="payme" (ionChange)="calcDelivery()">
               <ion-select-option *ngFor="let pamet of payme" [value]="pamet.id">{{pamet.wcname}}</ion-select-option>
             </ion-select>
           </div>
@@ -136,7 +136,7 @@
       <ion-item lines="none">
         <span slot="start" class="colorText price">Total</span>
         <span slot="end"  class="cuponText">
-          {{total | currency:'COP':'symbol-narrow':'3.0'}}
+          {{ctotal | currency:'COP':'symbol-narrow':'3.0'}}
         </span>
       </ion-item>
       <!--<ng-template [ngIf]="activeDes">

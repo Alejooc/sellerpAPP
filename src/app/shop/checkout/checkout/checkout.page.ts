@@ -79,7 +79,7 @@ export class CheckoutPage implements OnInit {
         this.cart.forEach((prod: { val: number; qty: number; }) => {
           this.total = this.total+(prod.val*prod.qty);
         });
-        
+        this.ctotal =this.total;
       }else{
         this.total = 0;
       }
@@ -119,7 +119,8 @@ export class CheckoutPage implements OnInit {
       
 
     }
-    ngOnInit() {     
+    ngOnInit() {   
+        
       this.servicePro.getStates().subscribe(resp=>{
         this.states=resp.body.states;
         this.citys=resp.body.citys;
@@ -134,7 +135,7 @@ export class CheckoutPage implements OnInit {
           dep:["",[Validators.required]],
           city:["",[Validators.required]],
           barrio:["",[Validators.required]],
-          payme:[""],
+          payme:["",[Validators.required]],
           transp:["",[Validators.required]],
           isLogged:this.logg,
         }
@@ -163,6 +164,7 @@ export class CheckoutPage implements OnInit {
       this.checkServide.getDelivery(this.checkoutForm.value,this.total).subscribe(resp=>{
         console.log(resp);
         this.deliveryPrice = resp.info.delivery;
+        this.ctotal = resp.total;
       })
     }
     citysApl(ev:any){
@@ -182,7 +184,7 @@ export class CheckoutPage implements OnInit {
       this.checkServide.getPaymet(selectCity).subscribe(resp=>{
         this.payme=resp.data;
       })
-      this.checkServide.getTransport().subscribe(resp=>{
+      this.checkServide.getTransport(ev.detail.value).subscribe(resp=>{
         this.transport=resp.data;
       })
       this.calcDelivery();
@@ -191,7 +193,7 @@ export class CheckoutPage implements OnInit {
       this.calcDelivery();
       this.addresSelect=address;
       console.log(this.selecCity);
-      this.checkServide.getTransport().subscribe(resp=>{
+      this.checkServide.getTransport(city).subscribe(resp=>{
         console.log(resp);
         this.transport=resp.data;
       })

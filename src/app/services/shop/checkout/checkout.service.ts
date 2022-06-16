@@ -26,9 +26,9 @@ export class CheckoutService {
     _urlParams.append('user',JSON.stringify(user));
     return this.http.post(`${this.AppSettings.API}get_addressU`,_urlParams);
   }
-  getTransport(user=1):Observable<any>{
+  getTransport(city):Observable<any>{
     const _urlParams: any = new FormData();
-    _urlParams.append('user',JSON.stringify(user));
+    _urlParams.append('city',city);
     return this.http.post(`${this.AppSettings.API}get_transports`,_urlParams);
   }
   getDelivery(data,total):Observable<any>{
