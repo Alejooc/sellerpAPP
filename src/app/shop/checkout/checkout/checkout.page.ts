@@ -32,6 +32,7 @@ export class CheckoutPage implements OnInit {
   transport: any;
   selecCity: any;
   deliveryPrice: any=0;
+  addresSelect: number;
   constructor(private formBuilder:FormBuilder,
     private storage:StorageService,
     private auth:AuthService,
@@ -188,6 +189,7 @@ export class CheckoutPage implements OnInit {
     }
     selectAddress(address:number,city){
       this.calcDelivery();
+      this.addresSelect=address;
       console.log(this.selecCity);
       this.checkServide.getTransport().subscribe(resp=>{
         console.log(resp);
