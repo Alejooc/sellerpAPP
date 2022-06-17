@@ -4,6 +4,7 @@ import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/for
 import { StorageService } from "../../services/storage/storage.service";
 import {ActivatedRoute,Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AppSettings } from "../../config/config";
 
 @Component({
   selector: 'app-pqr',
@@ -11,6 +12,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./pqr.page.scss'],
 })
 export class PqrPage implements OnInit {
+  api = new AppSettings();
   created:boolean=false;
   read:boolean=false;
   ticketForm:FormGroup;

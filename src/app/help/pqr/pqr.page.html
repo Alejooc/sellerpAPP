@@ -85,7 +85,10 @@
               <ng-template [ngIf]="arc.created_by==user.id">
                 <div class="bubble client" [attr.data-time]='arc.created'>
                   <span>
-                    <span class="msg"> {{arc.client_response}}</span>
+                    <span class="msg">
+                       {{arc.client_response}}
+                       <ion-img *ngIf="arc.ar1" [src]="api.URLIMG+'tickets/'+infoTicket.id+'/'+arc.ar1" alt="{{arc.ar1}}"></ion-img>
+                    </span>
                   </span>
                 </div>
               </ng-template>
@@ -93,6 +96,9 @@
                 <div class=" bubble operator" [attr.data-time]='arc.created'>
                   <span >
                     <span class="msg" [innerHTML]="arc.operator_response"></span>
+                    <ion-img  *ngIf="arc.ar1" [src]="api.URLIMG+'tickets/'+infoTicket.id+'/'+arc.ar1" alt="{{arc.ar1}}"></ion-img>
+                    <ion-img *ngIf="arc.ar2" [src]="api.URLIMG+'tickets/'+infoTicket.id+'/'+arc.ar2" alt="{{arc.ar2}}"></ion-img>
+                    <ion-img *ngIf="arc.ar3" [src]="api.URLIMG+'tickets/'+infoTicket.id+'/'+arc.ar3" alt="{{arc.ar3}}"></ion-img>
                   </span>
                 </div>
               </ng-template>

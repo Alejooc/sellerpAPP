@@ -78,6 +78,9 @@
         max-width: 65%;
         padding: 10px 15px;
         margin-bottom: 25px;
+        ion-img{
+            margin-bottom: 5px;
+        }
     }   
     .operator{
         border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);

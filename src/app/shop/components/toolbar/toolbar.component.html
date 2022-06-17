@@ -21,5 +21,10 @@
       <ion-icon name="enter-outline"></ion-icon>
     </span>
   </ng-template>
+  <ng-template [ngIf]="btnHelp">
+    <span color="light" class="cartBox" [ngClass]="{'shadow': shadow==true}" slot="end" [routerLink]="['/pqr']">
+      <ion-icon name="help-circle-outline" slot="end"></ion-icon>
+    </span>
+  </ng-template>
 </ion-item>
 

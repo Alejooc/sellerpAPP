@@ -17,6 +17,7 @@ export class ToolbarComponent implements OnInit {
   @Input() btnUser:boolean=false;
   @Input() md:boolean=false;
   @Input() btnLoggout:boolean=false;
+  @Input() btnHelp:boolean=false;
 
   
   act:any;
