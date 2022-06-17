@@ -190,6 +190,8 @@ export class CheckoutPage implements OnInit {
       this.calcDelivery();
     }
     selectAddress(address:number,city){
+      this.checkoutForm.controls['payme'].reset();
+      this.checkoutForm.controls['transp'].reset();
       this.calcDelivery();
       this.addresSelect=address;
       console.log(this.selecCity);
