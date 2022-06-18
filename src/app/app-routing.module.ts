@@ -42,6 +42,11 @@ const routes: Routes = [
     path: 'pqr',
     loadChildren: () => import('./help/pqr/pqr.module').then( m => m.PqrPageModule)
   },
+  {
+    path: 'checkout/success/:order',
+    loadChildren: () => import('./shop/checkout/success/success/success.module').then( m => m.SuccessPageModule)
+  },
+
 ];
 
 @NgModule({

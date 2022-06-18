@@ -1,0 +1,36 @@
+<ion-content>
+  <div class="icon-success">
+    <ion-icon name="checkmark-circle-sharp"></ion-icon>
+    <h5>¡Tu Compra ha sido realizada con éxito!</h5>
+    <ion-chip color="secondary">
+      <ion-label color="dark">{{payment}}</ion-label>
+    </ion-chip>
+    <ion-grid>
+      <div class="resume">
+        <h6>Resumen de compra #{{orderData.id}}</h6>
+        <ion-list lines="none">
+          <ion-item *ngFor="let prod of orderD">
+            <ion-thumbnail slot="start">
+              <img src="{{api.URLIMG}}products/thumbs/{{prod.img1}}">
+            </ion-thumbnail>
+            <span slot="end">{{prod.name}}x {{prod.qty}}</span>
+          </ion-item>
+        </ion-list>
+        <span class="total">Total: {{orderData.total | currency:'COP':'symbol-narrow':'3.0'}}</span>
+      </div>
+    </ion-grid>
+    
+    
+  </div>
+  
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="btnctr shadow">
+      <ion-button expand="block"  class="" type="submit" [routerLink]="['/']">
+        <ion-icon name="cart-outline" slot="start"></ion-icon>
+        Seguir comprando
+      </ion-button>  
+    </div>
+  </ion-toolbar>
+</ion-footer>

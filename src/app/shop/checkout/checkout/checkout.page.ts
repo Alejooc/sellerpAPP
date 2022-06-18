@@ -46,6 +46,9 @@ export class CheckoutPage implements OnInit {
         const data=  await this.storage.get('userData') || [];
         this.cart =  await this.storage.get('cart') || [];
         this.checkoutForm.reset();
+        if (this.cart.length==0) {
+          this.router.navigate(['/cart']);
+        }
         await this.load();
         if (data.length==0) {
           this.login=false;
@@ -84,7 +87,7 @@ export class CheckoutPage implements OnInit {
         this.total = 0;
       }
     }
-    async presentAlert(msg,type) {
+    async presentAlert(msg:any,type:any) {
       if (type!=1) {
         const alert = await this.alertController.create({
           cssClass: 'my-custom-class',
@@ -99,20 +102,8 @@ export class CheckoutPage implements OnInit {
         });
         await alert.present();
       }else{
-        const alert = await this.alertController.create({
-          cssClass: 'my-custom-class',
-          header: 'Alerta',
-          message: msg,
-          buttons: [{
-            text:'Entendido',
-            handler:()=>{
-              this.router.navigate(['/']);
-            }
-          }]
-
-        });
-        await this.storage.removeKey('cart');
-        await alert.present();
+          await this.storage.removeKey('cart');
+          this.router.navigate(['/checkout/success',msg]);
       }
       
   
@@ -151,7 +142,7 @@ export class CheckoutPage implements OnInit {
         this.checkServide.sendOrder(this.checkoutForm.value,this.total,this.logg,this.user).subscribe(resp=>{
           console.log(resp);
           if (resp.tipo ==1) {
-            this.presentAlert(resp.msg,1);
+            this.presentAlert(resp.id,1);
           }else{
             this.presentAlert(resp.msg,resp.tipo);
           }
@@ -189,9 +180,15 @@ export class CheckoutPage implements OnInit {
       })
       this.calcDelivery();
     }
-    selectAddress(address:number,city){
+    selectAddress(address:number,city,state,nbh,addres){
       this.checkoutForm.controls['payme'].reset();
       this.checkoutForm.controls['transp'].reset();
+      this.checkoutForm.get('city').setValue(city);
+      this.checkoutForm.get('dep').setValue(state);
+      this.checkoutForm.get('barrio').setValue(nbh);
+      this.checkoutForm.get('address').setValue(addres);
+      console.log(this.checkoutForm.value);
+      
       this.calcDelivery();
       this.addresSelect=address;
       console.log(this.selecCity);

@@ -43,7 +43,7 @@
                 <ion-grid>
                   <ion-row>
                     <ion-col size="12" *ngFor="let address of myAddress"  >
-                      <div  [ngClass]="{'item_select': addresSelect==address.id, 'item':addresSelect!=address.id }" (click)="selectAddress(address.id,address.city)" >
+                      <div  [ngClass]="{'item_select': addresSelect==address.id, 'item':addresSelect!=address.id }" (click)="selectAddress(address.id,address.city,address.state,address.nbh,address.address)" >
                         <span class="addrsItem">Direccion: {{address.address}}</span>
                         <span class="addrsItem">Barrio: {{address.nbh}}</span>
                         <span class="addrsItem">Ciudad: {{address.cityname}}</span>
